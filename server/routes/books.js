@@ -1,3 +1,10 @@
+/* 
+File name      : books.js
+Student’s Name : Asmae Allou  
+StudentID      : 301159608
+Date           : 1-11-2021
+*/
+
 // modules required for routing
 let express = require('express');
 let router = express.Router();
@@ -26,59 +33,61 @@ router.get('/', (req, res, next) => {
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  /*****************
+   * ADD CODE HERE *
+   *****************/
 
-    res.render('books/details', {title:"Add", books: book});
+  res.render('books/details', {title:"Add Book", books: ''});
 
 });
 
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  /*****************
+   * ADD CODE HERE *
+   *****************/
 
-    //creating a new book object
-    let newBook = book({
-      "Title": req.body.title,
-      "Description": req.body.description,
-      "Price": req.body.price,
-      "Author": req.body.author,
-      "Genre": req.body.genre
-    });
+  //instantiating a new book object
+  let newBook = book({
+    "Title": req.body.title,
+    "Description": req.body.description,
+    "Price": req.body.price,
+    "Author": req.body.author,
+    "Genre": req.body.genre
+  });
 
-    book.create(newBook, (err, book)=>{
-      if(err){
-        console.log(err);
-        res.end(err);
-      }
-      else{
-        res.redirect('/books')
-      }
+  //using the new book object to create a new record then redirecting to books page
+  book.create(newBook, (err, book)=>{
+    if(err){
+      console.log(err);
+      res.end(err);
+    }
+    else{
+      res.redirect('/books');
+    }
 
-    });
+  });
 });
 
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  /*****************
+   * ADD CODE HERE *
+   *****************/
 
-    let id = req.params.id;
+  let id = req.params.id;
 
-    book.findById({_id: id}, (err, bookToEdit)=>{
+  //using the id to find the book we need to edit then rendering the edit page
+  book.findById({_id: id}, (err, bookToEdit)=>{
 
     if(err){
       console.log(err);
       res.end(err);
     }
     else{
-      res.render('books/details', {title:"Edit", books: bookToEdit});
+      res.render('books/details', {title:"Edit Book", books: bookToEdit});
     }
 
   });
@@ -88,53 +97,58 @@ router.get('/:id', (req, res, next) => {
 // POST - process the information passed from the details form and update the document
 router.post('/:id', (req, res, next) => {
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  /*****************
+   * ADD CODE HERE *
+   *****************/
 
-    let id = req.params.id;
+  let id = req.params.id;
 
-    let editedBook = book({
-        "_id": id,
-        "Title": req.body.title,
-        "Description": req.body.description,
-        "Price": req.body.price,
-        "Author": req.body.author,
-        "Genre": req.body.genre
+  //creating a new book object
+  let editedBook = book({
+    "_id": id,
+    "Title": req.body.title,
+    "Description": req.body.description,
+    "Price": req.body.price,
+    "Author": req.body.author,
+    "Genre": req.body.genre
 
-    });
+  });
 
-    book.updateOne({_id: id}, editedBook, (err)=>{
+  //updating the old record with the new one then redirecting to books page
+  book.updateOne({_id: id}, editedBook, (err)=>{
 
-        if(err){
-          console.log(err);
-          res.end(err);
-        }
-        else{
-          res.redirect('/books');
-        }
-    })
+    if(err){
+      console.log(err);
+      res.end(err);
+    }
+    else{
+      res.redirect('/books');
+    }
+  });
+
 });
 
 // GET - process the delete by user id
 router.get('/delete/:id', (req, res, next) => {
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  /*****************
+   * ADD CODE HERE *
+   *****************/
 
-    let id = req.params.id;
+  let id = req.params.id;
 
-    book.remove({_id:id}, (err)=>{
-      
-      if(err){
-        console.log(err);
-        res.end(err);
-      }
-      else{
-        res.redirect('/books');
-      }
-    })
+  //using the id to delete a book, then redirecting to books page
+  book.remove({_id:id}, (err)=>{
+    
+    if(err){
+      console.log(err);
+      res.end(err);
+    }
+    else{
+      res.redirect('/books');
+    }
+  });
+
 });
 
 
