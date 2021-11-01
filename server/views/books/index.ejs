@@ -1,3 +1,10 @@
+<!--
+File name      : index.js
+Student’s Name : Asmae Allou  
+StudentID      : 301159608
+Date           : 1-11-2021
+-->
+
 <%- include('../partials/header.ejs'); %>
 
     <!-- MAIN CONTENT -->
@@ -35,14 +42,14 @@
                     <!-- ------------------------ -->
                     <!-- ADD the EDIT BUTTON HERE -->
                     <!-- ------------------------ -->
-                    <a href="/books/<%= books[count]._id%>" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
+                    <a href="/books/<%= books[count]._id%>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                   </td>
 
                   <td class="text-center">
                     <!-- ------------------------ -->
                     <!-- ADD the DELETE BUTTON HERE -->
                     <!-- ------------------------ -->
-                    <a href="/books/delete/<%= books[count]._id%>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</a>
+                    <a href="/books/delete/<%= books[count]._id%>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
                   </td>
                 </tr>
                 <% } %>
